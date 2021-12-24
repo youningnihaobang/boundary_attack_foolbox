@@ -15,9 +15,9 @@ import os
 from PIL import Image
 import json
 
-from keras.applications.resnet50 import ResNet50
+from tensorflow.keras.applications.resnet50 import ResNet50
 from keras.preprocessing import image
-from keras.applications.resnet50 import preprocess_input, decode_predictions
+from tensorflow.keras.applications.resnet50 import preprocess_input, decode_predictions
 
 
 def orthogonal_perturbation(delta, prev_sample, target_sample):
@@ -104,10 +104,10 @@ def boundary_attack():
 	folder = time.strftime('%Y%m%d_%H%M%S', datetime.datetime.now().timetuple())
 	os.mkdir(os.path.join("images", folder))
 	draw(np.copy(initial_sample), classifier, folder)
-	attack_class = np.argmax(classifier.predict(initial_sample))
-	target_class = np.argmax(classifier.predict(target_sample))
+	attack_class = np.argmax(classifier.predict(initial_sample))		#攻击类		
+	target_class = np.argmax(classifier.predict(target_sample))			#目标类
 
-	adversarial_sample = initial_sample
+	adversarial_sample = initial_sample	#设置攻击样本
 	n_steps = 0
 	n_calls = 0
 	epsilon = 1.
